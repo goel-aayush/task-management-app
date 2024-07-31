@@ -17,7 +17,7 @@ function Header() {
           console.error('No user ID found');
           return;
         }
-        const response = await axios.get(`https://task-management-app-1-4svs.onrender.com/api/CreateUser/getUser?userId=${userId}`);
+        const response = await axios.get(`https://task-management-app-1-4svs.onrender.com/api/getUser?userId=${userId}`);
 
         const fullName = response.data.name;
 
