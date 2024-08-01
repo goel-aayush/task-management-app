@@ -1,46 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-function TaskCard() {
-  const [tasks, setTasks] = useState([]);
-  const [isDataVisible, setIsDataVisible] = useState(false);
-
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.post('https://task-management-app-1-4svs.onrender.com/api/TaskRoutes');
-        const tasks = response.data.Task_Routes;
-        const storedUserId = localStorage.getItem('user_id');
-        const userTasks = tasks.filter(task => task.userId === storedUserId);
-
-        if (userTasks.length > 0) {
-          setTasks(userTasks);
-          setIsDataVisible(true);
-        } else {
-          setIsDataVisible(false);
-          
-        }
-      } catch (error) {
-        console.error('Error fetching task data:', error);
-      }
-    };
-
-    fetchTasks();
-  }, []);
-
-  const handleMove = async (taskId, currentPriority) => {
-    const newPriority = currentPriority === 'Urgent' ? 'Low' : 'Urgent';
-
-    try {
-      await axios.patch(`https://task-management-app-1-4svs.onrender.com/api/TaskRoutes/${taskId}`, { priority: newPriority });
-      setTasks(tasks.map(task =>
-        task._id === taskId ? { ...task, priority: newPriority } : task
-      ));
-      console.log('Priority updated');
-    } catch (error) {
-      console.error('Error updating priority:', error);
-    }
-  };
+function TaskCard({ tasks, onMove }) {
+  const isDataVisible = tasks.length > 0;
+  
 
   return (
     <div className="task-container">
@@ -54,7 +16,7 @@ function TaskCard() {
             </div>
             <div className="mt-1 text-neutral-500">{task.status}</div>
             <div className="mt-1 text-neutral-500">{new Date(task.deadline).toLocaleDateString()}</div>
-            <button onClick={() => handleMove(task._id, task.priority)} className="mt-2 p-2 bg-blue-500 text-white rounded">Move</button>
+            <button onClick={() => onMove(task._id, task.priority)} className="mt-2 p-2 bg-blue-500 text-white rounded">Move</button>
           </div>
         ))
       ) : (
@@ -65,4 +27,3 @@ function TaskCard() {
 }
 
 export default TaskCard;
-
