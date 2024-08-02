@@ -44,7 +44,7 @@ function PropertyList() {
       console.log(userId);
 
       const response = await axios.post(
-        'http://localhost:5000/api/properties', 
+        'https://task-management-app-1-4svs.onrender.com/api/properties', 
         { ...selectedProperties, userId }, // Include userId in the request body
         {
           headers: {
