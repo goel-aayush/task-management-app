@@ -44,7 +44,7 @@ function PropertyList() {
       console.log(userId);
 
       const response = await axios.post(
-        'https://task-management-app-1-4svs.onrender.com/api/properties', 
+        'https://authentic-courtesy-production.up.railway.app/api/properties', 
         { ...selectedProperties, userId }, // Include userId in the request body
         {
           headers: {

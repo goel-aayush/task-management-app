@@ -21,7 +21,7 @@ function TaskBoard() {
                 console.error('User ID is not found in localStorage');
                 return;
             }
-            const response = await axios.get('http://localhost:5000/api/TaskRoutes', {
+            const response = await axios.get('https://authentic-courtesy-production.up.railway.app/api/TaskRoutes', {
                 params: { userId: storedUserId } 
             });
             const tasks = response.data.Task_Routes;
@@ -46,7 +46,7 @@ function TaskBoard() {
     setTasks(newTasks);
     console.log(movedTask._id);
     try {
-      await axios.patch(`http://localhost:5000/api/TaskRoutes/${movedTask._id}`, { status: movedTask.status });
+      await axios.patch(`https://authentic-courtesy-production.up.railway.app/api/TaskRoutes/${movedTask._id}`, { status: movedTask.status });
       console.log('Status updated');
     } catch (error) {
       console.error('Error updating status:', error);
