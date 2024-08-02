@@ -6,8 +6,8 @@ const port = process.env.PORT
 const User = require('./models/User')
 
 const mongoDB = require('./db');
-mongoDB();
 
+mongoDB.connectDB();
 app.use(cors());
 
 app.use(express.json());
@@ -35,6 +35,7 @@ app.use('/api/', require('./Routes/Properties'));
 
 app.use('/api/', require("./Routes/TaskRoutes")); // for display data
 
+app.use('/api', require("./Routes/TaskRoutes"));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
